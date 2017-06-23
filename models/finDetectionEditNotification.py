@@ -4,20 +4,20 @@ class FinDetectionEditNotificationModel(db.Model):
     __tablename__ = 'finDetectionEditNotifications'
 
     id = db.Column(db.Integer, primary_key = True)
-    annotationId = db.Column(db.String(80))
+    mediaAssetUuid = db.Column(db.String(80))
     encounterId = db.Column(db.String(80))
     detectionUrl = db.Column(db.String(80))
 
     # store_id = db.Column(db.Integer, db.ForeignKey('stores.id'))
     # store = db.relationship('StoreModel')
 
-    def __init__(self,annotationId,encounterId,detectionUrl):
-        self.annotationId = annotationId
+    def __init__(self,mediaAssetUuid,encounterId,detectionUrl):
+        self.mediaAssetUuid = mediaAssetUuid
         self.encounterId = encounterId
         self.detectionUrl = detectionUrl
 
     def json(self):
-        return {'annotationId': self.annotationId, 'encounterId': self.encounterId, 'detectionUrl': self.detectionUrl }
+        return {'mediaAssetUuid': self.mediaAssetUuid, 'encounterId': self.encounterId, 'detectionUrl': self.detectionUrl }
 
 
     # useful for insertion and updating
@@ -30,5 +30,5 @@ class FinDetectionEditNotificationModel(db.Model):
         db.session.commit()
 
     @classmethod
-    def find_by_annotationId(cls,annotationId):
-        return cls.query.filter_by(annotationId=annotationId).first() # SELECT * FROM items WHERE name=name LIMIT 1 - returnsd first row only. also converts data to item model object
+    def find_by_mediaAssetUuid(cls,mediaAssetUuid):
+        return cls.query.filter_by(mediaAssetUuid=mediaAssetUuid).first() # SELECT * FROM items WHERE name=name LIMIT 1 - returnsd first row only. also converts data to item model object

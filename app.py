@@ -17,7 +17,7 @@ api = Api(app)
 #     db.create_all()
 
 
-api.add_resource(FinDetectionEditNotification, '/finDetectionEditNotification/<string:annotationId>')
+api.add_resource(FinDetectionEditNotification, '/finDetectionEditNotification/<string:mediaAssetUuid>')
 api.add_resource(FinDetectionEditNotifications, '/finDetectionEditNotifications')
 
 

@@ -21,26 +21,26 @@ class FinDetectionEditNotification(Resource):
     # )
 
     # @jwt_required()
-    def get(self,annotationId):
-        finDetectionEditNotification = FinDetectionEditNotificationModel.find_by_annotationId(annotationId)
+    def get(self,mediaAssetUuid):
+        finDetectionEditNotification = FinDetectionEditNotificationModel.find_by_mediaAssetUuid(mediaAssetUuid)
         if finDetectionEditNotification:
             return finDetectionEditNotification.json()
         else:
             return {'message': 'finDetectionEditNotification not found'},404
 
 
-    def delete(self,annotationId):
-        finDetectionEditNotification = FinDetectionEditNotificationModel.find_by_annotationId(annotationId)
+    def delete(self,mediaAssetUuid):
+        finDetectionEditNotification = FinDetectionEditNotificationModel.find_by_mediaAssetUuid(mediaAssetUuid)
         if finDetectionEditNotification:
             finDetectionEditNotification.delete_from_db()
             return {'message': 'finDetectionEditNotification deleted'}
 
 
-    def post(self, annotationId):
-        if FinDetectionEditNotificationModel.find_by_annotationId(annotationId):
-            return {'message': 'A finDetectionEditNotification with annotationId {} already exists.'.format(annotationId)}, 400
+    def post(self, mediaAssetUuid):
+        if FinDetectionEditNotificationModel.find_by_mediaAssetUuid(mediaAssetUuid):
+            return {'message': 'A finDetectionEditNotification with mediaAssetUuid {} already exists.'.format(mediaAssetUuid)}, 400
         data = FinDetectionEditNotification.parser.parse_args()
-        finDetectionEditNotification  = FinDetectionEditNotificationModel(annotationId, **data)
+        finDetectionEditNotification  = FinDetectionEditNotificationModel(mediaAssetUuid, **data)
 
         try:
             finDetectionEditNotification.save_to_db()
@@ -53,11 +53,11 @@ class FinDetectionEditNotification(Resource):
 
 
 
-    def put(self, annotationId):
+    def put(self, mediaAssetUuid):
         data = FinDetectionEditNotification.parser.parse_args()
-        finDetectionEditNotification = FinDetectionEditNotificationModel.find_by_annotationId(annotationId)
+        finDetectionEditNotification = FinDetectionEditNotificationModel.find_by_mediaAssetUuid(mediaAssetUuid)
         if finDetectionEditNotification is None:
-            finDetectionEditNotification = FinDetectionEditNotificationModel(annotationId,**data)
+            finDetectionEditNotification = FinDetectionEditNotificationModel(mediaAssetUuid,**data)
         else:
             finDetectionEditNotification.encounterId = data['encounterId']
             finDetectionEditNotification.detectionUrl = data['detectionUrl']
